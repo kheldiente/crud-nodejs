@@ -1,6 +1,7 @@
 const Todo = require("../models/todo")
 
-exports.getAllTodos = function(req, res) {
+exports.getAllTodos = (req, res) => {
+    // Todo.getRandomDummyTodos(req, res)
     Todo.getAllTodos((err, todos) => {
         if (err) {
             throw err
@@ -9,7 +10,7 @@ exports.getAllTodos = function(req, res) {
     })
 }
 
-exports.getTodoById = function(req, res) {
+exports.getTodoById = (req, res) => {
     Todo.getTodoById(req.params.id, (err, todo) => {
         if (err) {
             throw err
@@ -18,7 +19,7 @@ exports.getTodoById = function(req, res) {
     })
 }
 
-exports.createTodo = function(req, res) {
+exports.createTodo = (req, res) => {
     const newTodo = {
         title: req.body.title,
         completed: req.body.completed
@@ -34,7 +35,7 @@ exports.createTodo = function(req, res) {
     })
 }
 
-exports.updateTodo = function(req, res) {
+exports.updateTodo = (req, res) => {
     const updatedTodo = {
         title: req.body.title,
         completed: req.body.completed
@@ -50,7 +51,7 @@ exports.updateTodo = function(req, res) {
     })
 }
 
-exports.deleteTodo = function(req, res) {
+exports.deleteTodo = (req, res) => {
     Todo.deleteTodo(req.params.id, (err, result) => {
         if (err) {
             throw err
@@ -59,4 +60,10 @@ exports.deleteTodo = function(req, res) {
             message: "Todo deleted successfully"
         })
     })
+}
+
+exports.getRandomDummyTodos = async (req, res) => {
+    console.log("Get random dummy todos...")
+    let response = await Todo.getRandomDummyTodos()
+    res.json(response)
 }
